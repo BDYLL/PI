@@ -20,7 +20,8 @@
 *.tar.gz
 *.rar
 
-!lib/ojdbc7.jar
+!lib/jdatepicker-2.0.3.jar
+!lib/mysql-connector-java-5.1.44-bin.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
