@@ -62,6 +62,8 @@ public class OptionsWindows extends JFrame implements ActionListener{
 					.addContainerGap(93, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		this.setLocationRelativeTo(null);
+
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -71,8 +73,8 @@ public class OptionsWindows extends JFrame implements ActionListener{
 			this.dispose();
 		}
 		else if(e.getSource().equals(this.btnInsertarInformacion)){
-			MainWindow mw=new MainWindow(this.c,true);
-			mw.setVisible(true);
+			MainOptionsWindow mainOptionsWindow=new MainOptionsWindow(this.c,true);
+			mainOptionsWindow.setVisible(true);
 			this.dispose();
 		}
 		else if(e.getSource().equals(this.btnAdministracion)){

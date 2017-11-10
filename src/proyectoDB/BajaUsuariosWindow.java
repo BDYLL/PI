@@ -5,10 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -49,7 +46,7 @@ public class BajaUsuariosWindow extends JFrame implements ActionListener{
 		try{
 			Statement query=this.c.createStatement();
 			
-			String qs="SELECT NOMBREUSUARIO, TIPO FROM USUARIO";
+			String qs="SELECT nombreUsuario, tipo FROM Usuario";
 			
 			ResultSet rs=query.executeQuery(qs);
 			
@@ -108,6 +105,8 @@ public class BajaUsuariosWindow extends JFrame implements ActionListener{
 					.addGap(28))
 		);
 		contentPane.setLayout(gl_contentPane);
+
+		this.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -117,14 +116,18 @@ public class BajaUsuariosWindow extends JFrame implements ActionListener{
 			String usuario=this.usuarios.get(this.comboBox.getSelectedIndex());
 			
 			try{
-				Statement query=this.c.createStatement();
 				
-				String qs="DELETE FROM USUARIO WHERE NOMBREUSUARIO='"+usuario+"'";
-				
-				query.executeQuery(qs);
+				String qs="DELETE FROM Usuario WHERE nombreUsuario= ? ";
+
+				PreparedStatement query = this.c.prepareStatement(qs);
+
+				query.setString(1,usuario);
+
+				query.executeUpdate();
+
 				this.dispose();
 			}catch(SQLException e){
-				
+				e.printStackTrace();
 			}
 		}
 		else if(arg0.getSource().equals(this.btnCancelar)){

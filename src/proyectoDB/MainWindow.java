@@ -1,7 +1,6 @@
 package proyectoDB;
 
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -20,8 +19,10 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	private Connection c;
 	
-	private JButton btnIngresarCliente,btnIngresarProveedor,btnContactos,btnFacturar;
-	private JButton btnTarimas;
+	private JButton btnIngresarLote, btnIngresarEnvase, btnIngresarProducto,btnProdEnvasado;
+
+
+	private JButton btnFacturar;
 	private JButton btnIngresarMateriales;
 	private JButton btnIngresarMaderas;
 	private JButton btnFacturarMaterial;
@@ -60,17 +61,17 @@ public class MainWindow extends JFrame implements ActionListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		this.btnIngresarCliente = new JButton("Ingresar Cliente");
-		this.btnIngresarCliente.addActionListener(this);
+		this.btnIngresarLote = new JButton("Ingresar Lote");
+		this.btnIngresarLote.addActionListener(this);
 		
-		btnIngresarProveedor = new JButton("Ingresar Proveedor");
-		this.btnIngresarProveedor.addActionListener(this);
+		btnIngresarEnvase = new JButton("Ingresar Envase");
+		this.btnIngresarEnvase.addActionListener(this);
 		
-		btnContactos = new JButton("Ingresar Contacto");
-		btnContactos.addActionListener(this);
+		btnIngresarProducto = new JButton("Ingresar Producto");
+		btnIngresarProducto.addActionListener(this);
 		
-		btnTarimas = new JButton("Ingresar Tarimas");
-		btnTarimas.addActionListener(this);
+		btnProdEnvasado = new JButton("Ingresar producto envasado");
+		btnProdEnvasado.addActionListener(this);
 		
 		btnFacturar = new JButton("Facturar Tarima");
 		btnFacturar.addActionListener(this);
@@ -114,9 +115,9 @@ public class MainWindow extends JFrame implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(32)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnIngresarProveedor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnIngresarEnvase, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnFacturar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnIngresarCliente, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnIngresarLote, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnFacturarMaterial, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnIngresarTelefono, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(38)
@@ -124,8 +125,8 @@ public class MainWindow extends JFrame implements ActionListener{
 								.addComponent(btnIngresarMaderas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(btnIngresarMateriales, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnTarimas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnContactos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+									.addComponent(btnProdEnvasado, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnIngresarProducto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(151)
 							.addComponent(imgLabel))
@@ -139,12 +140,12 @@ public class MainWindow extends JFrame implements ActionListener{
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(31)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnIngresarCliente)
-						.addComponent(btnContactos))
+						.addComponent(btnIngresarLote)
+						.addComponent(btnIngresarProducto))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnTarimas)
-						.addComponent(btnIngresarProveedor))
+						.addComponent(btnProdEnvasado)
+						.addComponent(btnIngresarEnvase))
 					.addGap(37)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnFacturar)
@@ -162,7 +163,13 @@ public class MainWindow extends JFrame implements ActionListener{
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
-		
+
+		this.setLocationRelativeTo(null);
+
+
+		this.btnFacturar.setEnabled(false);
+		this.btnFacturar.setVisible(false);
+
 		/*try {
 			DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
 			
@@ -179,23 +186,25 @@ public class MainWindow extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton button=(JButton)e.getSource();
-		if(button.equals(this.btnIngresarCliente)){
-			IngresarClienteWindow icw=new IngresarClienteWindow();
-			icw.setConnection(this.c);
-			icw.setVisible(true);
+		if(button.equals(this.btnIngresarLote)){
+
+			IngresarLote ingresarLote=new IngresarLote(this.c);
+			ingresarLote.setVisible(true);
+
 		}
-		else if(button.equals(this.btnContactos)){
-			ContactosWindow cw=new ContactosWindow(this.c);
-			cw.setVisible(true);
+		else if(button.equals(this.btnIngresarProducto)){
+
+			IngresarProducto ingresarProducto=new IngresarProducto(this.c);
+			ingresarProducto.setVisible(true);
+
 		}
-		else if(button.equals(this.btnIngresarProveedor)){
-			ProveedorWindow pw=new ProveedorWindow(this.c);
-			pw.setVisible(true);
+		else if(button.equals(this.btnIngresarEnvase)){
+			IngresarEnvase ingresarEnvase=new IngresarEnvase(this.c);
+			ingresarEnvase.setVisible(true);
 		}
-		else if(button.equals(this.btnTarimas)){
-			TarimaWindow tw=new TarimaWindow(this.c);
-			//tw.setConnection(this.c);
-			tw.setVisible(true);
+		else if(button.equals(this.btnProdEnvasado)){
+			ProductoEnvasado productoEnvasado=new ProductoEnvasado(this.c);
+			productoEnvasado.setVisible(true);
 		}
 		else if(button.equals(this.btnFacturar)){
 			FacturaWindow fw=new FacturaWindow(this.c);

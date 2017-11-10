@@ -1,0 +1,90 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"title": "Producto Envasado"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "dialogPane"
+				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:36:p, par l {seq {comp lblCodigo:::p::p, space :::x, comp boxCodigo:::p::p}, seq t {comp lblDescMili:::p::p, space ::387:x, comp boxDescMili:::p::p}, seq l {comp lblFechaEnt:::p::p, space ::299:x, comp fechaEnt:::p::p}, seq {par l {comp lblFechaSal:::p::p, comp lblCantProd:::p::p}, space ::267:x, par l {comp fechaSal::t:p::p, comp cantProd::t:p:202:p}}}, space :p:80:p}}"
+					"$verticalGroup": "par l {seq l {space :p:21:p, par t {comp lblCodigo:::p::p, comp boxCodigo:::p::p}, space :p:28:p, par t {comp lblDescMili:::p::p, comp boxDescMili:::p::p}, space :p:30:p, par l {comp fechaEnt:::p::p, seq l {space :p:8:p, comp lblFechaEnt:::p::p}}, space :p:33:p, par l {comp lblFechaSal:::p::p, comp fechaSal:::p::p}, space :p:20:p, par b {comp lblCantProd::b:p::p, comp cantProd::b:p::p}, space ::19:x}}"
+				} ) {
+					name: "contentPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblCodigo"
+						"text": "Codigo"
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "boxCodigo"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblDescMili"
+						"text": "Descripción y mililitros"
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "boxDescMili"
+					} )
+					add( new FormComponent( "org.jdatepicker.JDatePicker" ) {
+						name: "fechaEnt"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblFechaEnt"
+						"text": "Fecha de entrada"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblFechaSal"
+						"text": "Fecha de salida"
+					} )
+					add( new FormComponent( "org.jdatepicker.JDatePicker" ) {
+						name: "fechaSal"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblCantProd"
+						"text": "Cantidad de producto"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "cantProd"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "0:1.0, 80, 80"
+					"$rowSpecs": "0"
+					"$hGap": 5
+					"$vGap": 5
+				} ) {
+					name: "buttonBar"
+					"border": new javax.swing.border.EmptyBorder( 12, 0, 0, 0 )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "okButton"
+						"text": "OK"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "okButtonActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 0
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "cancelButton"
+						"text": "Cancel"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelButtonActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 2
+						"gridy": 0
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "South"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 760, 400 )
+		} )
+	}
+}

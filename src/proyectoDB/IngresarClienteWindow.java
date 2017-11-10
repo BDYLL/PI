@@ -55,10 +55,10 @@ public class IngresarClienteWindow extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private Connection c;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField idLote;
+	private JTextField tarimas;
+	private JTextField cajas;
+	private JTextField cajasXTarimas;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
@@ -85,25 +85,25 @@ public class IngresarClienteWindow extends JFrame implements ActionListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		idLote = new JTextField();
+		idLote.setColumns(10);
 		
-		JLabel lblRfc = new JLabel("RFC");
+		JLabel lblLote = new JLabel("ID de Lote");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		tarimas = new JTextField();
+		tarimas.setColumns(10);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		JLabel lblTarimas = new JLabel("Tarimas");
 		
-		JLabel lblApellidoPaterno = new JLabel("Apellido Paterno");
+		JLabel lblCajas = new JLabel("Cajas");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		cajas = new JTextField();
+		cajas.setColumns(10);
 		
-		JLabel lblApellidoMaterno = new JLabel("Apellido Materno");
+		JLabel lblCajaXTarimas = new JLabel("Cajas x tarimas");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		cajasXTarimas = new JTextField();
+		cajasXTarimas.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Calle");
 		
@@ -152,118 +152,23 @@ public class IngresarClienteWindow extends JFrame implements ActionListener{
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(this);
 		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(22)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblApellidoPaterno)
-						.addComponent(lblNombre)
-						.addComponent(lblApellidoMaterno)
-						.addComponent(lblNewLabel)
-						.addComponent(lblRfc)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblNewLabel_2)
-						.addComponent(lblNoInterno))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)))
-							.addGap(44)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblTelefono)
-										.addComponent(lblEstado))
-									.addGap(18)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblMunicipio)
-										.addComponent(lblNewLabel_3))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(32, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(332, Short.MAX_VALUE)
-					.addComponent(btnAceptar)
-					.addGap(18)
-					.addComponent(btnCancelar)
-					.addGap(61))
+		GroupLayout layout = new GroupLayout(contentPane);
+
+		layout.setVerticalGroup(
+				layout.createSequentialGroup()
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+					.addComponent(lblLote).addGap(20).addComponent(idLote))
+
 		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(48)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblRfc)
-						.addComponent(lblTelefono)
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNombre)
-						.addComponent(lblEstado)
-						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(32)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblApellidoPaterno)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(34)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblApellidoMaterno)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel)
-								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(31)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_1)
-								.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel_2)
-								.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(27)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNoInterno)
-								.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(26)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblMunicipio)
-								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_3)
-								.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAceptar)
-						.addComponent(btnCancelar))
-					.addGap(22))
+
+		layout.setHorizontalGroup(
+				layout.createSequentialGroup()
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblLote).addComponent(idLote))
 		);
-		contentPane.setLayout(gl_contentPane);
+
+
+		contentPane.setLayout(layout);
 	}
 	public void setConnection(Connection c){
 		this.c=c;
@@ -275,8 +180,8 @@ public class IngresarClienteWindow extends JFrame implements ActionListener{
 			try {
 				Statement query=c.createStatement();
 				
-				String qs="INSERT INTO Cliente VALUES('"+textField.getText()+"','"+textField_1.getText()+
-						"','"+textField_2.getText()+"','"+textField_3.getText()+"','"+textField_4.getText()+"','"+
+				String qs="INSERT INTO Cliente VALUES('"+ idLote.getText()+"','"+ tarimas.getText()+
+						"','"+ cajas.getText()+"','"+ cajasXTarimas.getText()+"','"+textField_4.getText()+"','"+
 						textField_5.getText()+"',"+textField_6.getText()+","+textField_7.getText()+","+textField_8.getText()+",'"
 						+textField_9.getText()+"','"
 						+textField_10.getText()+"','"+textField_11.getText()+"')";

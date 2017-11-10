@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -54,7 +55,7 @@ public class IngresarUsuariosWindow extends JFrame implements ActionListener{
 		
 		lblTipoDeUsuario = new JLabel("Tipo de Usuario");
 		
-		String options[]={"administrador","empleado"};
+		String options[]={"admin","empleado"};
 		
 		comboBox = new JComboBox<String>(options);
 		
@@ -108,6 +109,8 @@ public class IngresarUsuariosWindow extends JFrame implements ActionListener{
 					.addGap(32))
 		);
 		contentPane.setLayout(gl_contentPane);
+
+		this.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -121,13 +124,21 @@ public class IngresarUsuariosWindow extends JFrame implements ActionListener{
 			char[] password=this.passwordField.getPassword();
 			
 			String passwordS=new String(password);
-			
-			String qs="INSERT INTO USUARIO VALUES('"+this.textField.getText()+"','"+passwordS+"',+'"+tipo+"')";
+
+			String user= textField.getText();
+
+			String qs="INSERT INTO Usuario (nombreUsuario,contrasena,tipo) VALUES(?,?,?)";
 			
 			try{
-				Statement query=this.c.createStatement();
-				
-				query.executeQuery(qs);
+
+				PreparedStatement ps = this.c.prepareStatement(qs);
+
+				ps.setString(1,user);
+				ps.setString(2,passwordS);
+				ps.setString(3,tipo);
+
+				ps.executeUpdate();
+
 				AdministracionWindow aw=new AdministracionWindow(this.c);
 				aw.setVisible(true);
 				this.dispose();

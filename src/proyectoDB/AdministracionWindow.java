@@ -68,6 +68,8 @@ public class AdministracionWindow extends JFrame implements ActionListener {
 					.addGap(34))
 		);
 		contentPane.setLayout(gl_contentPane);
+		this.setLocationRelativeTo(null);
+
 	}
 
 	@Override

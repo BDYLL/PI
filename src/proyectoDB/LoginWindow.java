@@ -1,5 +1,7 @@
 package proyectoDB;
 
+import com.mysql.jdbc.Driver;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -9,11 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -35,21 +33,22 @@ public class LoginWindow extends JFrame implements ActionListener{
 	private JPasswordField passwordField;
 	private JButton btnIngresar,btnSalir;
 	private Connection c;
-	
+
+
+	private static final String USER="root",PASS="1234",DB_URL="jdbc:mysql://localhost/Heineken";
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginWindow frame = new LoginWindow();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		EventQueue.invokeLater(() -> {
+            try {
+                LoginWindow frame = new LoginWindow();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 	}
 
 	/**
@@ -57,15 +56,19 @@ public class LoginWindow extends JFrame implements ActionListener{
 	 */
 	public LoginWindow() {
 		super("Login");
-		
+
+
 		try {
-			DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
+			DriverManager.registerDriver (new Driver());
 			
-			this.c = DriverManager.getConnection("jdbc:oracle:thin:@info.gda.itesm.mx:1521:alum", "a01228648", "tec8648");
-			
+			//this.c = DriverManager.getConnection("jdbc:oracle:thin:@info.gda.itesm.mx:1521:alum", "a01228648", "tec8648");
+
+			this.c = DriverManager.getConnection(DB_URL,USER,PASS);
+
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("OH SNAP!");
 			e.printStackTrace();
 		}
 		
@@ -165,14 +168,16 @@ public class LoginWindow extends JFrame implements ActionListener{
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(314, Short.MAX_VALUE))
 		);
-		contentPane.setLayout(gl_contentPane);	
+		contentPane.setLayout(gl_contentPane);
+
+		this.setLocationRelativeTo(null);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg) {
 		if(arg.getSource().equals(this.btnIngresar)){
 			try{
-				Statement query=this.c.createStatement();
+				//Statement query=this.c.createStatement();
 				
 				String user,password;
 				
@@ -183,10 +188,20 @@ public class LoginWindow extends JFrame implements ActionListener{
 				password=new String(tmp);
 				
 				
-				String qs="SELECT * FROM USUARIO WHERE NOMBREUSUARIO='"+user+"' AND CONTRASENA='"+password+"'";
-		
-				ResultSet rs=query.executeQuery(qs);
-				
+				//String qs="SELECT * FROM Usuario WHERE nombreUsuario='"+user+"' AND contrasena='"+password+"'";
+
+
+				String q="SELECT * FROM Usuario WHERE nombreUsuario=? AND contrasena=?";
+
+				PreparedStatement statement=this.c.prepareStatement(q);
+
+				statement.setString(1,user);
+				statement.setString(2,password);
+
+				//ResultSet rs=query.executeQuery(qs);
+
+				ResultSet rs = statement.executeQuery();
+
 				String result[]=new String[3];
 				
 				while(rs.next()){
@@ -203,14 +218,14 @@ public class LoginWindow extends JFrame implements ActionListener{
 					this.passwordField.setBackground(Color.RED);
 					this.passwordField.setText("");
 				}
-				if("administrador".equals(result[2])){
+				if("admin".equals(result[2])){
 					OptionsWindows ow=new OptionsWindows(this.c);
 					ow.setVisible(true);
 					this.dispose();
 				}
 				else if("empleado".equals(result[2])){
-					MainWindow mw=new MainWindow(this.c,false);
-					mw.setVisible(true);
+					MainOptionsWindow optionsWindow=new MainOptionsWindow(this.c,false);
+					optionsWindow.setVisible(true);
 					this.dispose();
 				}
 				
