@@ -23,6 +23,8 @@ public class IngresarEnvase extends JFrame {
     public IngresarEnvase(Connection c) {
         this.c=c;
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
     }
 
     private void okButtonActionPerformed(ActionEvent e) {

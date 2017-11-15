@@ -98,7 +98,7 @@ public class LoginWindow extends JFrame implements ActionListener{
 		BufferedImage image=null;
 		
 		try {
-			image=ImageIO.read(new File("img/Tarimas y Cajas.gif"));
+			image=ImageIO.read(new File("img/heineken-logo.png"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -114,8 +114,7 @@ public class LoginWindow extends JFrame implements ActionListener{
 		
 		btnIngresar = new JButton("Ingresar");
 		this.btnIngresar.addActionListener(this);
-		JLabel lblCopyright = new JLabel("<html>Este modulo le permitira administrar la base de datos de: <br>"
-				+ "Proveedores, facturas, tarimas, contactos, clientes</br></html>");
+		JLabel lblCopyright = new JLabel("");
 		lblCopyright.setFont(new Font("Courier New",Font.ITALIC,12));
 		
 		btnSalir = new JButton("Salir");
@@ -219,7 +218,7 @@ public class LoginWindow extends JFrame implements ActionListener{
 					this.passwordField.setText("");
 				}
 				if("admin".equals(result[2])){
-					OptionsWindows ow=new OptionsWindows(this.c);
+					OptionsWindows2 ow=new OptionsWindows2(this.c);
 					ow.setVisible(true);
 					this.dispose();
 				}

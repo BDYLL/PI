@@ -203,7 +203,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			ingresarEnvase.setVisible(true);
 		}
 		else if(button.equals(this.btnProdEnvasado)){
-			ProductoEnvasado productoEnvasado=new ProductoEnvasado(this.c);
+			IngresarProductoEnvasado productoEnvasado=new IngresarProductoEnvasado(this.c);
 			productoEnvasado.setVisible(true);
 		}
 		else if(button.equals(this.btnFacturar)){

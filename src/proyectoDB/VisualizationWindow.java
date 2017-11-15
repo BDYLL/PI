@@ -1,12 +1,8 @@
 package proyectoDB;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,8 +16,8 @@ public class VisualizationWindow extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private Connection c;
-	private JButton btnVerProveedores;
-	private JButton btnVerFacturas;
+	private JButton btnVerLotes;
+	private JButton btnVerProdEnvasado;
 	private JButton btnRegresar,btnVerClientes;
 	/**
 	 * Launch the application.
@@ -50,23 +46,13 @@ public class VisualizationWindow extends JFrame implements ActionListener{
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
 		
-		/*try {
-			DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
-			
-			this.c = DriverManager.getConnection("jdbc:oracle:thin:@info.gda.itesm.mx:1521:alum", "a01228648", "tec8648");
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		btnVerLotes = new JButton("Ver lotes");
+		this.btnVerLotes.addActionListener(this);
 		
-		btnVerProveedores = new JButton("Ver proveedores");
-		this.btnVerProveedores.addActionListener(this);
-		
-		btnVerFacturas = new JButton("Ver Facturas");
-		this.btnVerFacturas.addActionListener(this);
+		btnVerProdEnvasado = new JButton("Ver producto envasado");
+		this.btnVerProdEnvasado.addActionListener(this);
 		
 		btnRegresar = new JButton("Regresar");
 		this.btnRegresar.addActionListener(this);
@@ -84,9 +70,9 @@ public class VisualizationWindow extends JFrame implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(btnVerClientes, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnVerProveedores, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(btnVerLotes, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(56)
-							.addComponent(btnVerFacturas, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnVerProdEnvasado, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(66, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -94,8 +80,8 @@ public class VisualizationWindow extends JFrame implements ActionListener{
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(21)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVerProveedores)
-						.addComponent(btnVerFacturas))
+						.addComponent(btnVerLotes)
+						.addComponent(btnVerProdEnvasado))
 					.addGap(30)
 					.addComponent(btnVerClientes)
 					.addPreferredGap(ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
@@ -103,21 +89,26 @@ public class VisualizationWindow extends JFrame implements ActionListener{
 					.addGap(29))
 		);
 		contentPane.setLayout(gl_contentPane);
+
+		this.setLocationRelativeTo(null);
+
+		this.btnVerClientes.setEnabled(false);
+		this.btnVerClientes.setVisible(false);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg) {
 		JButton button=(JButton)arg.getSource();
-		if(button.equals(this.btnVerProveedores)){
-			VerProveedoresWindow vpw=new VerProveedoresWindow(this.c);
+		if(button.equals(this.btnVerLotes)){
+			VerLotes vpw=new VerLotes(this.c);
 			vpw.setVisible(true);
 		}
-		else if(button.equals(this.btnVerFacturas)){
-			VerFacturasWindow vfw=new VerFacturasWindow(this.c);
-			vfw.setVisible(true);
+		else if(button.equals(this.btnVerProdEnvasado)){
+			VerProductoEnvasado productoEnvasado=new VerProductoEnvasado(this.c);
+			productoEnvasado.setVisible(true);
 		}
 		else if(button.equals(this.btnRegresar)){
-			OptionsWindows ow=new OptionsWindows(this.c);
+			OptionsWindows2 ow=new OptionsWindows2(this.c);
 			ow.setVisible(true);
 			this.dispose();
 		}

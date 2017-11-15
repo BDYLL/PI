@@ -24,6 +24,8 @@ public class IngresarProducto extends JFrame {
         this.c=c;
 
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
     }
 
     private void okButtonActionPerformed(ActionEvent e) {

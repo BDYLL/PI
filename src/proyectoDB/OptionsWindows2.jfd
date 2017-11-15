@@ -1,0 +1,48 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"title": "Opciones"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "dialogPane"
+				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space ::49:x, par t {comp btnInsertar:::p:309:p, comp btnVer:::p:309:p, comp btnExp::t:p:309:p, comp btnAdmin::t:p:309:p}, space :p:31:p}}"
+					"$verticalGroup": "par l {seq l {space :::p, comp btnVer:::p::p, space u:::p, comp btnInsertar:::p::p, space ::21:x, comp btnAdmin:::p::p, space s:::p, comp btnExp:::p::p, space :p:24:p}}"
+				} ) {
+					name: "contentPanel"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "btnVer"
+						"text": "Ver"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnVerActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "btnInsertar"
+						"text": "Insertar"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnInsertarActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "btnAdmin"
+						"text": "Administración"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnAdminActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "btnExp"
+						"text": "Exportar"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnExpActionPerformed", true ) )
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 415, 270 )
+		} )
+	}
+}

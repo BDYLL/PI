@@ -10,5 +10,6 @@
     <orderEntry type="library" name="ojdbc7" level="project" />
     <orderEntry type="library" name="jdatepicker-2.0.3" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.44-bin" level="project" />
+    <orderEntry type="library" name="javacsv" level="project" />
   </component>
 </module>

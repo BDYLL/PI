@@ -28,19 +28,21 @@ import org.jdatepicker.*;
 /**
  * @author Diego YaÃ±ez
  */
-public class ProductoEnvasado extends JFrame {
+public class IngresarProductoEnvasado extends JFrame {
 
     private Connection c;
 
     private Map<String,Integer> milisMap;
     private Map<String,String> descMap;
 
-    public ProductoEnvasado(Connection c) {
+    public IngresarProductoEnvasado(Connection c) {
         this.c=c;
         this.milisMap =new HashMap<>();
         this.descMap=new HashMap<>();
         initComponents();
         updateList();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
     }
 
     private void updateList(){

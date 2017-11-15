@@ -22,10 +22,11 @@ public class MainOptionsWindow extends JFrame {
         this.c=c;
         initComponents();
         this.okButton.setEnabled(admin);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void okButtonActionPerformed(ActionEvent e) {
-        OptionsWindows ow=new OptionsWindows(this.c);
+        OptionsWindows2 ow=new OptionsWindows2(this.c);
         ow.setVisible(true);
         this.dispose();
     }
@@ -47,7 +48,7 @@ public class MainOptionsWindow extends JFrame {
     }
 
     private void btnProdEnvActionPerformed(ActionEvent e) {
-        ProductoEnvasado productoEnvasado=new ProductoEnvasado(this.c);
+        IngresarProductoEnvasado productoEnvasado=new IngresarProductoEnvasado(this.c);
         productoEnvasado.setVisible(true);
     }
 

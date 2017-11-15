@@ -28,7 +28,7 @@ public class AdministracionWindow extends JFrame implements ActionListener {
 	public AdministracionWindow(Connection c) {
 		super("Administracion");
 		this.c=c;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,7 +83,7 @@ public class AdministracionWindow extends JFrame implements ActionListener {
 			buw.setVisible(true);
 		}
 		else if(arg0.getSource().equals(this.btnRegresar)){
-			OptionsWindows ow=new OptionsWindows(this.c);
+			OptionsWindows2 ow=new OptionsWindows2(this.c);
 			ow.setVisible(true);
 			this.dispose();
 		}

@@ -1,25 +1,14 @@
 package proyectoDB;
 
-import java.awt.BorderLayout;
-
-import java.awt.EventQueue;
+import entities.Lote;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -27,30 +16,22 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
 
-public class VerProveedoresWindow extends JFrame implements ActionListener{
+public class VerLotes extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JComboBox<String> comboBox;
 	private Connection c;
-	private Hashtable<Integer,String> idRFC;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private String columns1[]={"Largo","Alto","Grosor","UltimaFecha"/*,"Nombre","Apellido Pat","Apellido Mat","Telefono"*/};
-	private String columns2[]={"Tipo","Tamano","Ultima Fecha"/*,"Nombre","Apellido Pat","Apellido Mat","Telefono"*/};
-	private String columns3[]={"Lote","Ultima Fecha"/*,"Nombre","Apellido Pat","Apellido Mat","Telefono"*/};
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnNewRadioButton_1;
-	private JRadioButton rdbtnNewRadioButton_2;
-	private ButtonGroup bg;
-	private JLabel lblNombreDeProveedor,lblTelefonos;
-	
+
+	private String[] lotesColumns={"ID","Tarimas","Cajas","Cajas X Tarimas"};
+
 	/**
 	 * Create the frame.
 	 */
-	public VerProveedoresWindow(Connection c) {
-		super("Ver Proveedores");
+	public VerLotes(Connection c) {
+		super("Ver lotes");
 		this.c=c;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -59,40 +40,35 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JLabel lblProveedoresDeMateriales = new JLabel("Proveedores");
+		JLabel lblProveedoresDeMateriales = new JLabel("");
 		
-		JLabel lblProveedor = new JLabel("Proveedor");
-		
-		ArrayList<String> proveedores=new ArrayList<String>();
-		this.idRFC=new Hashtable<Integer,String>();
+		JLabel lblLote = new JLabel("ID del lote");
+
+		List<String> lotes=new ArrayList<>();
 		try{
-			Statement query=this.c.createStatement();
-			
-			String qs="SELECT RFCProveedor, PNombre FROM Proveedor";
-			
-			ResultSet rs=query.executeQuery(qs);
-			
-			int i=0;
+
+			String query="SELECT idLote from Lote";
+
+			PreparedStatement statement=this.c.prepareStatement(query);
+
+			ResultSet rs=statement.executeQuery();
+
+
 			while(rs.next()){
-				String rfc,nombre;
-				rfc=rs.getString("RFCProveedor");
-				nombre=rs.getString("PNombre");
-				String res=rfc+" "+nombre;
-				proveedores.add(res);
-				this.idRFC.put(i, rfc);
-				i++;
+				lotes.add(rs.getString("idLote"));
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}	
 		
-		String tmp[]=new String[proveedores.size()];
+		String tmp[]=new String[lotes.size()];
 		
 		
-		comboBox = new JComboBox<String>(proveedores.toArray(tmp));
+		comboBox = new JComboBox<String>(lotes.toArray(tmp));
 		this.comboBox.addActionListener(this);
 		scrollPane = new JScrollPane();
-		
+
+		/*
 		this.bg=new ButtonGroup();
 		
 		rdbtnNewRadioButton = new JRadioButton("Madera");
@@ -101,11 +77,12 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 		rdbtnNewRadioButton_1 = new JRadioButton("Material");
 		this.bg.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_2 = new JRadioButton("Tarimas recicladas");
-		this.bg.add(rdbtnNewRadioButton_2);
+		this.bg.add(rdbtnNewRadioButton_2);*/
+
+		/*
+		lblNombreDeProveedor = new JLabel("");
 		
-		lblNombreDeProveedor = new JLabel("Nombre de proveedor:");
-		
-		lblTelefonos = new JLabel("Telefonos:");
+		lblTelefonos = new JLabel("");*/
 		
 			
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -117,13 +94,13 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 							.addContainerGap()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(rdbtnNewRadioButton)
+									//.addComponent(rdbtnNewRadioButton)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(rdbtnNewRadioButton_1)
+									//.addComponent(rdbtnNewRadioButton_1)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(rdbtnNewRadioButton_2))
+									/*.addComponent(rdbtnNewRadioButton_2)*/)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblProveedor)
+									.addComponent(lblLote)
 									.addGap(35)
 									.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(83)
@@ -134,8 +111,8 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(260)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTelefonos)
-								.addComponent(lblNombreDeProveedor))))
+								//.addComponent(lblTelefonos)
+								/*.addComponent(lblNombreDeProveedor)*/)))
 					.addContainerGap(261, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -151,16 +128,16 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 							.addGap(80)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblProveedor))))
+								.addComponent(lblLote))))
 					.addGap(49)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(rdbtnNewRadioButton)
-						.addComponent(rdbtnNewRadioButton_1)
-						.addComponent(rdbtnNewRadioButton_2))
+						//.addComponent(rdbtnNewRadioButton)
+						//.addComponent(rdbtnNewRadioButton_1)
+						/*.addComponent(rdbtnNewRadioButton_2)*/)
 					.addGap(61)
-					.addComponent(lblNombreDeProveedor)
+					//.addComponent(lblNombreDeProveedor)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblTelefonos)
+					//.addComponent(lblTelefonos)
 					.addContainerGap(228, Short.MAX_VALUE))
 		);
 		
@@ -170,8 +147,10 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 		table.setEnabled(false);
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
-	}
 
+		this.setLocationRelativeTo(null);
+	}
+/*
 	private void updateTable(String prov){
 		String qs="";
 		
@@ -208,7 +187,7 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 					if(!telefonos.contains(tel)){
 						telefonos.add(tel);
 					}
-					String row[]={alto,largo,grosor,fecha/*,cpnombre,appP,appM,tel*/};
+					String row[]={alto,largo,grosor,fecha/*,cpnombre,appP,appM,tel};
 					rows.add(row);
 				}
 			}
@@ -237,7 +216,7 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 					if(!telefonos.contains(tel)){
 						telefonos.add(tel);
 					}
-					String row[]={tipo,tamano,fecha/*,cpnombre,appP,appM,tel*/};
+					String row[]={tipo,tamano,fecha/*,cpnombre,appP,appM,tel};
 					rows.add(row);
 				}
 			}
@@ -264,7 +243,7 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 					if(!telefonos.contains(tel)){
 						telefonos.add(tel);
 					}
-					String row[]={tlote,fecha/*,cpnombre,appP,appM,tel*/};
+					String row[]={tlote,fecha/*,cpnombre,appP,appM,tel};
 					rows.add(row);
 				}
 			}
@@ -313,14 +292,69 @@ public class VerProveedoresWindow extends JFrame implements ActionListener{
 			System.out.println(qs);
 			e.printStackTrace();
 		}
+	}*/
+
+	private void update(String id){
+		String query="SELECT tarimas,cajas,cajasTarimas FROM Lote WHERE idLote = ?";
+
+		List<Lote> lotes=new ArrayList<>();
+
+		try {
+			PreparedStatement statement=this.c.prepareStatement(query);
+
+
+			statement.setString(1,id);
+
+			ResultSet rs = statement.executeQuery();
+
+			int tarimas,cajas,cajasTarimas;
+
+			while(rs.next()){
+
+				tarimas=rs.getInt("tarimas");
+				cajas=rs.getInt("cajas");
+				cajasTarimas=rs.getInt("cajasTarimas");
+
+				lotes.add(new Lote(id,tarimas,cajas,cajasTarimas));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String[][] tmp=new String[lotes.size()][];
+
+		for(int i=0;i<lotes.size();i++){
+			Lote lote=lotes.get(i);
+			tmp[i]=new String[]{lote.getId(),Integer.toString(lote.getTarimas()),Integer.toString(lote.getCajas()),Integer.toString(lote.getCajasTarimas())};
+		}
+
+		this.scrollPane.remove(this.table);
+
+		this.table=new JTable(tmp,lotesColumns);
+
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		table.setFillsViewportHeight(true);
+		table.setEnabled(false);
+		scrollPane.setViewportView(table);
+		scrollPane.revalidate();
+		scrollPane.repaint();
+
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource().equals(comboBox)){
-			int index=this.comboBox.getSelectedIndex();
+			/*int index=this.comboBox.getSelectedIndex();
 			String prov=this.idRFC.get(index);
 			this.updateTable(prov);
+			*/
+
+			String id = this.comboBox.getSelectedItem().toString();
+
+			this.update(id);
+
 		}
 	}
 }
