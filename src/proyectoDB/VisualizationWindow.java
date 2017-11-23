@@ -112,9 +112,6 @@ public class VisualizationWindow extends JFrame implements ActionListener{
 			ow.setVisible(true);
 			this.dispose();
 		}
-		else if(button.equals(this.btnVerClientes)){
-			VerClientesWindow vcw=new VerClientesWindow(this.c);
-			vcw.setVisible(true);
-		}
+
 	}
 }
