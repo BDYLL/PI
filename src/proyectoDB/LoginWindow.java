@@ -9,9 +9,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -41,9 +41,40 @@ public class LoginWindow extends JFrame implements ActionListener{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+
+		Properties properties=new Properties();
+
+
+		String userTmp="";
+		String passwordTmp="";
+		String urlTmp="";
+
+		try (InputStream inputStream = new FileInputStream("config/config.properties")) {
+
+			properties.load(inputStream);
+
+			userTmp=properties.getProperty("user");
+			passwordTmp=properties.getProperty("password");
+			urlTmp=properties.getProperty("url");
+
+
+		} catch (FileNotFoundException e) {
+			userTmp=USER;
+			passwordTmp=PASS;
+			urlTmp=DB_URL;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		final String user=userTmp;
+		final String password=passwordTmp;
+		final String url=urlTmp;
+
 		EventQueue.invokeLater(() -> {
+
             try {
-                LoginWindow frame = new LoginWindow();
+                LoginWindow frame = new LoginWindow(user,password,url);
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,7 +85,7 @@ public class LoginWindow extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public LoginWindow() {
+	public LoginWindow(String user,String password,String url) {
 		super("Login");
 
 
@@ -63,7 +94,7 @@ public class LoginWindow extends JFrame implements ActionListener{
 			
 			//this.c = DriverManager.getConnection("jdbc:oracle:thin:@info.gda.itesm.mx:1521:alum", "a01228648", "tec8648");
 
-			this.c = DriverManager.getConnection(DB_URL,USER,PASS);
+			this.c = DriverManager.getConnection(url,user,password);
 
 			
 		} catch (SQLException e) {
