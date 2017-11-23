@@ -19,14 +19,13 @@ public class CSVExporter {
     private static final String LOTE_QUERY="SELECT * FROM Lote",
                                 PROD_QUERY="SELECT * FROM Producto",
                                 ENV_QUERY="SELECT * FROM Envase",
-                                ENV_PROD_QUERY="SELECT * FROM IngresarProductoEnvasado";
+                                ENV_PROD_QUERY="SELECT * FROM ProductoEnvasado";
 
     private static final List<String> QUERY_LIST= Collections.unmodifiableList(Arrays.asList(LOTE_QUERY,PROD_QUERY,ENV_PROD_QUERY,ENV_QUERY));
 
-    private static final Map<String,String> QUERY_TO_FILENAME;
+    private static final Map<String,String> QUERY_TO_FILENAME=new HashMap<>();
 
     static{
-        QUERY_TO_FILENAME=new HashMap<>();
         QUERY_TO_FILENAME.put(LOTE_QUERY,"lote.csv");
         QUERY_TO_FILENAME.put(PROD_QUERY,"producto.csv");
         QUERY_TO_FILENAME.put(ENV_QUERY,"envase.csv");
@@ -99,7 +98,7 @@ public class CSVExporter {
         boolean resultStatus=true;
 
         for (String query : QUERY_LIST){
-            resultStatus=this.query(query,destDirectory);
+            resultStatus= resultStatus && this.query(query,destDirectory);
         }
 
         return resultStatus;

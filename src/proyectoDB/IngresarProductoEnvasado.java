@@ -100,10 +100,7 @@ public class IngresarProductoEnvasado extends JFrame {
         int cantProd=-1;
 
         try{
-
             cantProd=Integer.parseInt(this.cantProd.getText());
-
-
         }
         catch(NumberFormatException ex){
             this.cantProd.setForeground(Color.RED);
